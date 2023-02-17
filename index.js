@@ -7,18 +7,6 @@ const cors = require('cors')
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cors())
-const knex = require('knex')({
-    client: 'mysql',
-    version: '5.7',
-    connection: {
-        host: '127.0.0.1',
-        port: 3306,
-        user: 'netomysql',
-        password: '195089aa',
-        database: 'myapp_test'
-    },
-    pool: {min: 0, max: 7}
-});
 
 var DB = {
     games:
@@ -384,6 +372,6 @@ app.put("/ext/:id",(req, res) => {
 
 });
 
-app.listen(80,() => {
+app.listen(8080,() => {
     console.log("API RODANDO!");
 });
