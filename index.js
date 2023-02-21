@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require('cors')
+const fs = require('fs')
+
+const file = fs.readFileSync('./D1A118DBB77FE803B8CE3D0440D1070B.txt')
 
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -372,6 +375,10 @@ app.put("/ext/:id",(req, res) => {
 
 });
 
-app.listen(80,() => {
+app.get('/.well-known/pki-validation/D1A118DBB77FE803B8CE3D0440D1070B.txt'), (req, res) => {
+   res.sendFile('./D1A118DBB77FE803B8CE3D0440D1070B.txt')
+}
+
+app.listen(3000,() => {
     console.log("API RODANDO!");
 });
