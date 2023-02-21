@@ -1,11 +1,18 @@
 const express = require('express')
 const cors = require('cors')
 const fs = require('fs')
+const https = require('https')
 
-const file = fs.readFileSync('./D1A118DBB77FE803B8CE3D0440D1070B.txt')
+const key = fs.readFileSync('private.key')
+const cert = fs.readFileSync('certificate.crt')
 
 const app = express()
 const port = 3000
+
+const cred = {
+    key,
+    cert
+}
 
 app.use(cors())
 
@@ -15,8 +22,7 @@ app.get('/api', (req, res) => {
     })
 })
 
-app.get('/.well-known/pki-validation/D1A118DBB77FE803B8CE3D0440D1070B.txt', (req, res) => {
-    res.sendFile('/home/ubuntu/aws-node2/D1A118DBB77FE803B8CE3D0440D1070B.txt')
-})
-
 app.listen(port, () => console.log(`Listening on ${port}`))
+
+const httpsServer = https.createServer(cred, app)
+httpsServer.listen(8443)
